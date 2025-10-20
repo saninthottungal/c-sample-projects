@@ -1,9 +1,17 @@
 #include <stdio.h>
+#include <math.h>
+
+float sum(float num1, float num2);
+float substraction(float num1, float num2);
+float multiplication(float num1, float num2);
+float division(float num1, float num2);
+float modulus(float num1, float num2);
+float power(float num1, float num2);
 
 int main(int argc, char const *argv[])
 {
     int choice;
-    float num1 = 0, num2 = 0;
+    float num1 = 0, num2 = 0, result = 0;
 
     printf("\n-------------------------------\n");
     printf("Welcome to the Calculator\n");
@@ -22,13 +30,7 @@ int main(int argc, char const *argv[])
     printf("Now, Enter your choice: ");
     scanf(" %d", &choice);
 
-    if (choice != 1 &&
-        choice != 2 &&
-        choice != 3 &&
-        choice != 4 &&
-        choice != 5 &&
-        choice != 6 &&
-        choice != 7)
+    if (choice < 1 || choice > 7)
     {
         printf("\n\nInvalid Option Selected!!\n");
         return 0;
@@ -40,5 +42,39 @@ int main(int argc, char const *argv[])
     printf("Please enter your second number: ");
     scanf(" %f", &num2);
 
+    switch (choice)
+    {
+    case 1:
+        result = sum(num1, num2);
+        break;
+    case 2:
+        result = substraction(num1, num2);
+        break;
+    case 3:
+        result = multiplication(num1, num2);
+        break;
+    case 4:
+        result = division(num1, num2);
+        break;
+    case 5:
+        result = modulus(num1, num2);
+        break;
+    case 6:
+        result = power(num1, num2);
+        break;
+    default:
+        printf("\nInvalid option Selected\n");
+        return 0;
+    }
+
+    printf("\n\nThe result of the operation is: %f\n", result);
+
     return 0;
 }
+
+float sum(float num1, float num2) { return num1 + num2; }
+float substraction(float num1, float num2) { return num1 - num2; }
+float multiplication(float num1, float num2) { return num1 * num2; }
+float division(float num1, float num2) { return num1 / num2; }
+float modulus(float num1, float num2) { return fmod(num1, num2); }
+float power(float num1, float num2) { return pow(num1, num2); }
