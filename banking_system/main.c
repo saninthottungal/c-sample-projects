@@ -11,10 +11,41 @@ typedef enum
 } UserChoice;
 
 UserChoice getUserChoice();
+void createAccount();
+void depositMoney();
+void withdrawMoney();
+void checkBalance();
+void handleInvalidSelection();
 
 int main()
 {
-    UserChoice choice = getUserChoice();
+    while (1)
+    {
+
+        UserChoice choice = getUserChoice();
+
+        switch (choice)
+        {
+        case create:
+            createAccount();
+            break;
+        case deposit:
+            depositMoney();
+            break;
+        case withdraw:
+            withdrawMoney();
+            break;
+        case balance:
+            checkBalance();
+            break;
+        case unknown:
+            handleInvalidSelection();
+            break;
+        case exit:
+
+            return 0;
+        }
+    }
 
     return 0;
 }
@@ -53,3 +84,9 @@ UserChoice getUserChoice()
         return unknown;
     }
 }
+
+void createAccount() {}
+void depositMoney() {}
+void withdrawMoney() {}
+void checkBalance() {}
+void handleInvalidSelection() {}
