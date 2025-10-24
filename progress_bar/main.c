@@ -1,17 +1,32 @@
 #include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 int main(int argc, char const *argv[])
 {
     int progress = 0;
 
-    printf("[");
-    for (int i = 1; i <= 10; i++)
+    while (progress != 100)
     {
-        printf("=");
-        progress = (i * 10);
-    }
+        printf("[");
+        for (int i = 0; i < 10; i++)
+        {
+            if (i <= (progress) / 10)
+            {
+                printf("=");
+            }
+            else
+            {
+                printf(" ");
+            }
+        }
 
-    printf("]%d%%\n", progress);
+        progress = progress + 10;
+        printf("]%d%%\n", progress);
+        sleep(1);
+
+        system("clear");
+    }
 
     return 0;
 }
