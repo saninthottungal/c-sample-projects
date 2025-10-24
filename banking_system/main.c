@@ -120,9 +120,33 @@ void createAccount(BankUser *users, int *counter)
 
 void depositMoney(BankUser *users, int *counter)
 {
-    int accountId;
-    printf("\n Enter your accountId: ");
+    int accountId, indexOf;
+    printf("\nEnter your account number: ");
     scanf(" %d", &accountId);
+
+    if (doesAccountExists(users, accountId, counter, &indexOf))
+    {
+        float amount;
+        printf("Enter the amount to deposit: ");
+        scanf(" %f", &amount);
+
+        if (amount > 0)
+        {
+            BankUser user = *(users + indexOf);
+            user.balance += amount;
+
+            printf("\n!!! Amount of %.2f has been credited to your account !!!", amount);
+            printf("\n!!! Your current balance is %.2f !!!", user.balance);
+        }
+        else
+        {
+            printf("\n!!! Please choose a valid Amount !!!");
+        }
+    }
+    else
+    {
+        printf("\n!!! Ooopsss.... Account not found !!!");
+    }
 }
 void withdrawMoney() {}
 void checkBalance(BankUser *users, int *counter)
