@@ -18,14 +18,17 @@ typedef enum
 } UserChoice;
 
 UserChoice getUserChoice();
-void createAccount();
+void createAccount(BankUser *users, int *counter);
 void depositMoney();
 void withdrawMoney();
 void checkBalance();
 void handleInvalidSelection();
+int doesAccountExists(BankUser *users, int accountId, int *counter);
 
 int main()
 {
+    BankUser bankUsers[50] = {0};
+    int counter = 0;
 
     while (1)
     {
@@ -35,7 +38,7 @@ int main()
         switch (choice)
         {
         case create:
-            createAccount();
+            createAccount(bankUsers, &counter);
             break;
         case deposit:
             depositMoney();
@@ -61,7 +64,7 @@ int main()
 UserChoice getUserChoice()
 {
     int numberChoice;
-    printf("\n*** Bank Management System ***\n");
+    printf("\n\n*** Bank Management System ***\n");
     printf("1. Create Account\n");
     printf("2. Deposit Money\n");
     printf("3. Withdraw Money\n");
@@ -93,10 +96,44 @@ UserChoice getUserChoice()
     }
 }
 
-void createAccount() {}
+void createAccount(BankUser *users, int *counter)
+{
+    BankUser user;
+    printf("\nEnter your name: ");
+    scanf(" %s", user.name);
+    printf("Enter an account number: ");
+    scanf(" %d", &user.accountId);
+
+    if (doesAccountExists(users, user.accountId, counter))
+    {
+        printf("\n!!! User Already Exists !!!");
+    }
+    else
+    {
+        *(users + *counter) = user;
+        (*counter)++;
+
+        printf("\n!!! Account created Successfully !!!");
+    }
+}
+
 void depositMoney() {}
 void withdrawMoney() {}
 void checkBalance() {}
+
+int doesAccountExists(BankUser *users, int accountId, int *counter)
+{
+    for (int i = 0; i < *counter; i++)
+    {
+        if ((*(users + i)).accountId == accountId)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 void handleInvalidSelection()
 {
     printf("\nInvalid choice. Please select a valid choice.\n");
