@@ -8,7 +8,7 @@ typedef struct
     char password[20];
 } User;
 
-void registerUser(User arr[], int index);
+int registerUser(User arr[], int index);
 
 int main(int argc, char const *argv[])
 {
@@ -26,9 +26,13 @@ int main(int argc, char const *argv[])
         {
         case 1:
             printf("Register a new user\n");
-            registerUser(users, counter);
+            int isSuccess = registerUser(users, counter);
+            if (isSuccess)
+            {
+                counter++;
+            }
 
-            return 0;
+            break;
 
         case 2:
             printf("Login initiated\n");
@@ -42,11 +46,14 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
-void registerUser(User arr[], int index)
+int registerUser(User arr[], int index)
 {
     User user;
     printf("\nEnter username(MAX 20 characters): ");
     scanf(" %s", user.username);
     printf("Enter password(MAX 20 characters): ");
     scanf(" %s", user.password);
+
+    arr[index] = user;
+    return 0;
 }
