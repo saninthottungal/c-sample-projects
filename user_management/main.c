@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #define MAX_USERS 50
 
@@ -9,6 +10,7 @@ typedef struct
 } User;
 
 int registerUser(User arr[], int index);
+int checkIfUserAlreadyExists(User arr[], char username[]);
 
 int main(int argc, char const *argv[])
 {
@@ -29,6 +31,7 @@ int main(int argc, char const *argv[])
             int isSuccess = registerUser(users, counter);
             if (isSuccess)
             {
+                printf("\nUser registration completed successfully!\n");
                 counter++;
             }
 
@@ -56,7 +59,35 @@ int registerUser(User arr[], int index)
     printf("Enter password(MAX 20 characters): ");
     scanf(" %s", user.password);
 
-    arr[index] = user;
+    int alreadyExists = checkIfUserAlreadyExists(arr, user.username);
 
-    return 0;
+    if (alreadyExists)
+    {
+        printf("\nUser Already Exists\n");
+
+        return 0;
+    }
+    else
+    {
+        arr[index] = user;
+    }
+
+    return 1;
+}
+
+int checkIfUserAlreadyExists(User users[], char username[])
+{
+    int doesUserExists = 0;
+
+    for (int i = 0; i < MAX_USERS; i++)
+    {
+        ;
+        if (strcmp(users[i].username, username) == 0)
+        {
+            doesUserExists = 1;
+            return doesUserExists;
+        }
+    }
+
+    return doesUserExists;
 }
