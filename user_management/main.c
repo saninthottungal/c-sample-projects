@@ -9,7 +9,8 @@ typedef struct
     char password[20];
 } User;
 
-int registerUser(User arr[], int index);
+int registerUser(User users[], int index);
+void loginUser(User users[]);
 int checkIfUserAlreadyExists(User arr[], char username[]);
 
 int main(int argc, char const *argv[])
@@ -38,8 +39,8 @@ int main(int argc, char const *argv[])
             break;
 
         case 2:
-            printf("Login initiated\n");
-            return 0;
+            loginUser(users);
+            break;
 
         case 3:
             printf("Exited\n");
@@ -51,7 +52,7 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
-int registerUser(User arr[], int index)
+int registerUser(User users[], int index)
 {
     User user;
     printf("\nEnter username(MAX 20 characters): ");
@@ -59,7 +60,7 @@ int registerUser(User arr[], int index)
     printf("Enter password(MAX 20 characters): ");
     scanf(" %s", user.password);
 
-    int alreadyExists = checkIfUserAlreadyExists(arr, user.username);
+    int alreadyExists = checkIfUserAlreadyExists(users, user.username);
 
     if (alreadyExists)
     {
@@ -69,10 +70,31 @@ int registerUser(User arr[], int index)
     }
     else
     {
-        arr[index] = user;
+        users[index] = user;
     }
 
     return 1;
+}
+
+void loginUser(User users[])
+{
+    User user;
+
+    printf("\nEnter username: ");
+    scanf(" %s", user.username);
+    printf("Enter password: ");
+    scanf(" %s", user.password);
+
+    int alreadyExists = checkIfUserAlreadyExists(users, user.username);
+
+    if (alreadyExists)
+    {
+        printf("\nUser logged in Successfully!\n");
+    }
+    else
+    {
+        printf("\nUser not found, please register to continue!\n");
+    }
 }
 
 int checkIfUserAlreadyExists(User users[], char username[])
