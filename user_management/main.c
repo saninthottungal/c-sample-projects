@@ -7,7 +7,7 @@ typedef struct
 {
     char username[20];
     char password[20];
-} User;
+} BankUser;
 
 int registerUser(User users[], int index);
 void loginUser(User users[]);

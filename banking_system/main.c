@@ -5,7 +5,7 @@ typedef struct
     char name[20];
     int accountId;
     float balance;
-} User;
+} BankUser;
 
 typedef enum
 {
@@ -26,6 +26,7 @@ void handleInvalidSelection();
 
 int main()
 {
+
     while (1)
     {
 
