@@ -29,7 +29,6 @@ int main(int argc, char const *argv[])
         switch (userSelection)
         {
         case 1:
-            printf("Register a new user\n");
             int isSuccess = registerUser(users, counter);
             if (isSuccess)
             {
@@ -65,7 +64,7 @@ int registerUser(User users[], int index)
 
     if (alreadyExists)
     {
-        printf("\nUser Already Exists\n");
+        printf("\nUser Already Exists. Please login to continue.\n");
 
         return 0;
     }
@@ -136,4 +135,6 @@ int checkIfUsernamePasswordMatches(User users[], char username[], char password[
             return doesPasswordMatch;
         }
     }
+
+    return 0;
 }
