@@ -12,6 +12,7 @@ typedef struct
 int registerUser(User users[], int index);
 void loginUser(User users[]);
 int checkIfUserAlreadyExists(User arr[], char username[]);
+int checkIfUsernamePasswordMatches(User users[], char username[], char password[]);
 
 int main(int argc, char const *argv[])
 {
@@ -89,7 +90,16 @@ void loginUser(User users[])
 
     if (alreadyExists)
     {
-        printf("\nUser logged in Successfully!\n");
+        int passwordMatches = checkIfUsernamePasswordMatches(users, user.username, user.password);
+
+        if (passwordMatches)
+        {
+            printf("\nUser logged in Successfully!\n");
+        }
+        else
+        {
+            printf("\nusername or password is incorrect!\n");
+        }
     }
     else
     {
@@ -103,7 +113,7 @@ int checkIfUserAlreadyExists(User users[], char username[])
 
     for (int i = 0; i < MAX_USERS; i++)
     {
-        ;
+
         if (strcmp(users[i].username, username) == 0)
         {
             doesUserExists = 1;
@@ -112,4 +122,18 @@ int checkIfUserAlreadyExists(User users[], char username[])
     }
 
     return doesUserExists;
+}
+
+int checkIfUsernamePasswordMatches(User users[], char username[], char password[])
+{
+    int doesPasswordMatch = 0;
+    for (int i = 0; i < MAX_USERS; i++)
+    {
+
+        if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0)
+        {
+            doesPasswordMatch = 1;
+            return doesPasswordMatch;
+        }
+    }
 }
