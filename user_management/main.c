@@ -41,6 +41,8 @@ int main(int argc, char const *argv[])
         case 3:
             printf("Exited\n");
             return 0;
+        default:
+            return 1;
         }
     }
     return 0;
@@ -55,5 +57,6 @@ int registerUser(User arr[], int index)
     scanf(" %s", user.password);
 
     arr[index] = user;
+
     return 0;
 }
