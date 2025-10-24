@@ -20,7 +20,7 @@ typedef enum
 UserChoice getUserChoice();
 void createAccount(BankUser *users, int *counter);
 void depositMoney(BankUser *users, int *counter);
-void withdrawMoney();
+void withdrawMoney(BankUser *users, int *counter);
 void checkBalance(BankUser *users, int *counter);
 void handleInvalidSelection();
 int doesAccountExists(BankUser *users, int accountId, int *counter, int *indexOf);
@@ -44,7 +44,7 @@ int main()
             depositMoney(bankUsers, &counter);
             break;
         case withdraw:
-            withdrawMoney();
+            withdrawMoney(bankUsers, &counter);
             break;
         case balance:
             checkBalance(bankUsers, &counter);
@@ -135,6 +135,8 @@ void depositMoney(BankUser *users, int *counter)
             BankUser user = *(users + indexOf);
             user.balance += amount;
 
+            *(users + indexOf) = user;
+
             printf("\n!!! Amount of %.2f has been credited to your account !!!", amount);
             printf("\n!!! Your current balance is %.2f !!!", user.balance);
         }
@@ -148,7 +150,38 @@ void depositMoney(BankUser *users, int *counter)
         printf("\n!!! Ooopsss.... Account not found !!!");
     }
 }
-void withdrawMoney() {}
+void withdrawMoney(BankUser *users, int *counter)
+{
+    int accountId, indexOf;
+    printf("\nEnter your account number: ");
+    scanf(" %d", &accountId);
+    if (doesAccountExists(users, accountId, counter, &indexOf))
+    {
+        float amount;
+        printf("Enter the amount to Withdraw: ");
+        scanf(" %f", &amount);
+
+        BankUser user = *(users + indexOf);
+
+        if (amount <= user.balance)
+        {
+            user.balance -= amount;
+
+            *(users + indexOf) = user;
+
+            printf("\n!!! Amount of %.2f has been Debited From your account !!!", amount);
+            printf("\n!!! Your current balance is %.2f !!!", user.balance);
+        }
+        else
+        {
+            printf("\n!!! Insufficient Balance !!!");
+        }
+    }
+    else
+    {
+        printf("\n!!! Ooopsss.... Account not found !!!");
+    }
+}
 void checkBalance(BankUser *users, int *counter)
 {
     int accountId;
@@ -159,7 +192,7 @@ void checkBalance(BankUser *users, int *counter)
     if (doesAccountExists(users, accountId, counter, &indexOfUser))
     {
         BankUser user = *(users + indexOfUser);
-        printf("\n!!! Account balance for the account number %d is: %f !!!", user.accountId, user.balance);
+        printf("\n!!! Account balance for the account number %d is: %.2f !!!", user.accountId, user.balance);
     }
     else
     {
