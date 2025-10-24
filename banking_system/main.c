@@ -3,23 +3,23 @@
 typedef enum
 {
     create,
-    Deposit,
+    deposit,
     withdraw,
     balance,
     exit,
     unknown,
 } UserChoice;
 
-UserChoice getUserChoice(UserChoice *choice);
+UserChoice getUserChoice();
 
-int main(int argc, char const *argv[])
+int main()
 {
-    UserChoice choice;
-    getUserChoice(&choice);
+    UserChoice choice = getUserChoice();
+
     return 0;
 }
 
-UserChoice getUserChoice(UserChoice *choice)
+UserChoice getUserChoice()
 {
     int numberChoice;
     printf("\n*** Bank Management System ***\n");
@@ -30,7 +30,26 @@ UserChoice getUserChoice(UserChoice *choice)
     printf("5. Exit\n");
     printf("Enter your choice: ");
 
-    scanf("%1d", &numberChoice);
+    scanf("%d", &numberChoice);
 
-    return unknown;
+    switch (numberChoice)
+    {
+    case 1:
+        return create;
+        break;
+    case 2:
+        return deposit;
+        break;
+    case 3:
+        return withdraw;
+        break;
+    case 4:
+        return balance;
+        break;
+    case 5:
+        return exit;
+        break;
+    default:
+        return unknown;
+    }
 }
