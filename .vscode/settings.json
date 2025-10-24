@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "**/*.drift": "sql",
+        "stdbool.h": "c"
+    }
+}
