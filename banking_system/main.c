@@ -89,4 +89,7 @@ void createAccount() {}
 void depositMoney() {}
 void withdrawMoney() {}
 void checkBalance() {}
-void handleInvalidSelection() {}
+void handleInvalidSelection()
+{
+    printf("\nInvalid choice. Please select a valid choice.\n");
+}
