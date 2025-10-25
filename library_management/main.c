@@ -57,51 +57,12 @@ int main(int argc, char const *argv[])
 
 void showWelcomeMessage()
 {
-    char *welcomeMessage = "Welcome to Udayam Vayanashaala";
-    int length = strlen(welcomeMessage) + 6;
-
     printf("\n");
-    for (int i = 0; i < length; i++)
-    {
-        printf("/");
-    }
-    printf("\n");
-    for (int i = 0; i < length; i++)
-    {
-        if (i == 0 || i == length - 3)
-        {
-            printf("**");
-        }
-        else
-        {
-            printf(" ");
-        }
-    }
-    printf("\n**");
-
-    printf(" %s ", welcomeMessage);
-    printf("**");
-    printf("\n");
-
-    for (int i = 0; i < length; i++)
-    {
-        if (i == 0 || i == length - 3)
-        {
-            printf("**");
-        }
-        else
-        {
-            printf(" ");
-        }
-    }
-
-    printf("\n");
-
-    for (int i = 0; i < length; i++)
-    {
-        printf("/");
-    }
-
+    printf("////////////////////////////////////\n");
+    printf("//                                //\n");
+    printf("// Welcome to Udayam Vayanashaala //\n");
+    printf("//                                //\n");
+    printf("////////////////////////////////////\n");
     printf("\n");
 }
 
