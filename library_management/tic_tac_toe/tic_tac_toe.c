@@ -108,7 +108,6 @@ void updateTakeAndTurn(char board[3][3], Player *turn, int x, int y)
         *turn = *turn == PX ? P0 : PX;
     }
 }
-
 int calculateWinner(char board[3][3])
 {
     int gameRunning = 1;
@@ -116,31 +115,55 @@ int calculateWinner(char board[3][3])
 
     for (int i = 0; i < 3; i++)
     {
-
-        if (((board[i][0] == board[i][1]) && (board[i][1] == board[i][2])) && board[i][0] != ' ')
+        if ((board[i][0] == board[i][1] && board[i][1] == board[i][2]) && board[i][0] != ' ')
         {
-
+            winner = (board[i][0] == 'X') ? PXW : P0W;
             gameRunning = 0;
-            winner = board[i][0] == 'X' ? PXW : P0W;
+            break;
         }
 
-        if (((board[0][i] == board[1][i]) && (board[1][i] == board[2][i])) && board[0][i] != ' ')
+        if ((board[0][i] == board[1][i] && board[1][i] == board[2][i]) && board[0][i] != ' ')
         {
+            winner = (board[0][i] == 'X') ? PXW : P0W;
             gameRunning = 0;
-            winner = board[0][i] == 'X' ? PXW : P0W;
+            break;
         }
     }
 
-    if ((board[0][0] == board[1][1]) && (board[1][1] == board[2][2]) && board[0][0] != ' ')
+    if (winner == NONE)
     {
-        gameRunning = 0;
-        winner = board[0][0] == 'X' ? PXW : P0W;
+        if ((board[0][0] == board[1][1] && board[1][1] == board[2][2]) && board[0][0] != ' ')
+        {
+            winner = (board[0][0] == 'X') ? PXW : P0W;
+            gameRunning = 0;
+        }
+        else if ((board[0][2] == board[1][1] && board[1][1] == board[2][0]) && board[0][2] != ' ')
+        {
+            winner = (board[0][2] == 'X') ? PXW : P0W;
+            gameRunning = 0;
+        }
     }
 
-    if ((board[0][2] == board[1][1]) && (board[1][1] == board[2][0]) && board[0][2] != ' ')
+    if (winner == NONE)
     {
-        gameRunning = 0;
-        winner = board[0][0] == 'X' ? PXW : P0W;
+        int full = 1;
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (board[i][j] == ' ')
+                {
+                    full = 0;
+                    break;
+                }
+            }
+        }
+
+        if (full)
+        {
+            winner = DRAW;
+            gameRunning = 0;
+        }
     }
 
     if (winner != NONE)
@@ -156,5 +179,6 @@ int calculateWinner(char board[3][3])
 
         sleep(3);
     }
+
     return gameRunning;
 }
