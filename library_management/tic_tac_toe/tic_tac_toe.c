@@ -9,7 +9,7 @@ typedef enum
 
 void drawBoard(char board[3][3]);
 void takeTurn(Player turn, int *x, int *y);
-void updateTake(char board[3][3], Player turn, int x, int y);
+void updateTakeAndTurn(char board[3][3], Player *turn, int x, int y);
 
 int main()
 {
@@ -26,7 +26,7 @@ int main()
         drawBoard(board);
 
         takeTurn(turn, &x, &y);
-        updateTake(board, turn, x, y);
+        updateTakeAndTurn(board, &turn, x, y);
         system("clear");
     }
 
@@ -69,17 +69,18 @@ void takeTurn(Player turn, int *x, int *y)
     *y = n2 - 1;
 }
 
-void updateTake(char board[3][3], Player turn, int x, int y)
+void updateTakeAndTurn(char board[3][3], Player *turn, int x, int y)
 {
-    char player = turn == PX ? 'X' : '0';
+    char player = *turn == PX ? 'X' : '0';
     int isValid = board[x][y] == ' ' && x < 3 && y < 3;
     if (!isValid)
     {
-        printf("!!! Not a valid Move !!!\n");
+        printf("!!! Invalid Move !!!\n");
         sleep(2);
     }
     else
     {
         board[x][y] = player;
+        *turn = *turn == PX ? P0 : PX;
     }
 }
