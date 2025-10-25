@@ -1,6 +1,16 @@
 #include <stdio.h>
 #include <string.h>
 
+#define DB_PATH "library_db.csv"
+
+typedef struct
+{
+    int id;
+    char title[50];
+    int year;
+
+} Book;
+
 void showWelcomeMessage();
 int showAvailableActions();
 void addBook();
@@ -91,7 +101,32 @@ void showInvalidOptionSelected()
 
 //* Actions
 
-void addBook() {}
+void addBook()
+{
+    Book book;
+    FILE *file = fopen(DB_PATH, "a+");
+
+    if (file == NULL)
+    {
+        printf("\n!!! opening file failed !!!\n");
+        return;
+    }
+
+    printf("\nEnter bookId: ");
+    scanf("%d", &book.id);
+
+    printf("Enter book name: ");
+    getchar();
+    fgets(book.title, sizeof(book.title), stdin);
+    book.title[strcspn(book.title, "\n")] = '\0';
+    printf("Enter the year: ");
+    scanf("%d", &book.year);
+
+    fprintf(file, "%d,%s,%d\n", book.id, book.title, book.year);
+    fclose(file);
+
+    printf("\n!!! Book added succesfully !!!\n");
+}
 void viewBooks() {}
 void searchBooks() {}
 void updateBook() {}
