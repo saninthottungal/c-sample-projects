@@ -137,7 +137,7 @@ int calculateWinner(char board[3][3])
         winner = board[0][0] == 'X' ? PXW : P0W;
     }
 
-    if ((board[0][2] == board[1][1]) && (board[1][1] == board[2][0]) && board[0][0] != ' ')
+    if ((board[0][2] == board[1][1]) && (board[1][1] == board[2][0]) && board[0][2] != ' ')
     {
         gameRunning = 0;
         winner = board[0][0] == 'X' ? PXW : P0W;
