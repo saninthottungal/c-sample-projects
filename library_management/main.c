@@ -14,37 +14,42 @@ void showInvalidOptionSelected();
 int main(int argc, char const *argv[])
 {
     showWelcomeMessage();
-    int userChoice = showAvailableActions();
 
-    switch (userChoice)
+    while (1)
     {
-    case 1:
-        addBook();
-        break;
+        int userChoice = showAvailableActions();
+        switch (userChoice)
+        {
+        case 1:
+            addBook();
+            break;
 
-    case 2:
-        viewBooks();
-        break;
+        case 2:
+            viewBooks();
+            break;
 
-    case 3:
-        searchBooks();
-        break;
+        case 3:
+            searchBooks();
+            break;
 
-    case 4:
-        updateBook();
-        break;
+        case 4:
+            updateBook();
+            break;
 
-    case 5:
-        deleteBook();
-        break;
+        case 5:
+            deleteBook();
+            break;
 
-    case 6:
-        issueOrReturnBook();
-        break;
-    case 7:
-        return 0;
-    default:
-        showInvalidOptionSelected();
+        case 6:
+            issueOrReturnBook();
+            break;
+
+        case 7:
+            return 0;
+
+        default:
+            showInvalidOptionSelected();
+        }
     }
 
     return 0;
@@ -97,11 +102,12 @@ void showWelcomeMessage()
         printf("/");
     }
 
-    printf("\n\n");
+    printf("\n");
 }
 
 int showAvailableActions()
 {
+    printf("\n");
     printf("1. Add Book\n");
     printf("2. View Books\n");
     printf("3. Search Book\n");
@@ -119,7 +125,7 @@ int showAvailableActions()
 
 void showInvalidOptionSelected()
 {
-    printf("\n!!! Invalid option selected !!!\n");
+    printf("\n!!! Invalid option selected, please choose a valid option !!!\n");
 }
 
 //* Actions
