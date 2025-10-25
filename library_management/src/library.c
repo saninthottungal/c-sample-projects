@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <string.h>
+
 #include "library.h"
 
 void showWelcomeMessage()
@@ -48,4 +51,21 @@ void showWelcomeMessage()
     }
 
     printf("\n\n");
+}
+
+int showAvailableActions()
+{
+    printf("1. Add Book\n");
+    printf("2. View Books\n");
+    printf("3. Search Book\n");
+    printf("4. Update Book\n");
+    printf("5. Delete Book\n");
+    printf("6. Issue/Return Book\n");
+    printf("7. Exit\n");
+
+    int option;
+    printf("Please choose your option: ");
+    scanf("%d", &option);
+
+    return option;
 }
