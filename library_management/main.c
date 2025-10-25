@@ -9,6 +9,7 @@ void searchBooks();
 void updateBook();
 void deleteBook();
 void issueOrReturnBook();
+void showInvalidOptionSelected();
 
 int main(int argc, char const *argv[])
 {
@@ -120,3 +121,12 @@ void showInvalidOptionSelected()
 {
     printf("\n!!! Invalid option selected !!!\n");
 }
+
+//* Actions
+
+void addBook() {}
+void viewBooks() {}
+void searchBooks() {}
+void updateBook() {}
+void deleteBook() {}
+void issueOrReturnBook() {}
