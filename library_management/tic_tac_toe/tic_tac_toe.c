@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 typedef enum
 {
     PX,
@@ -8,7 +9,7 @@ typedef enum
 
 void drawBoard(char board[3][3]);
 void takeTurn(Player turn, int *x, int *y);
-int validateTake(char board[3][3], int x, int y);
+void validateTake(char board[3][3], int x, int y);
 
 int main()
 {
@@ -21,15 +22,11 @@ int main()
 
     while (1)
     {
-        int x = 0, y = 0, isValidMove = 1;
+        int x = 0, y = 0;
         drawBoard(board);
-        if (!isValidMove)
-        {
-            printf("!!! Not a valid Move !!!\n");
-        }
 
         takeTurn(turn, &x, &y);
-        isValidMove = validateTake(board, x, y);
+        validateTake(board, x, y);
         system("clear");
     }
 
@@ -64,12 +61,20 @@ void drawBoard(char board[3][3])
 void takeTurn(Player turn, int *x, int *y)
 {
     char player = turn == PX ? 'X' : '0';
+    int n1, n2;
 
     printf("turn of %c, play! (1-3)(1-3): ", player);
-    scanf("%d %d", x, y);
+    scanf("%d %d", &n1, &n2);
+    *x = n1 - 1;
+    *y = n2 - 1;
 }
 
-int validateTake(char board[3][3], int x, int y)
+void validateTake(char board[3][3], int x, int y)
 {
-    return board[x][y] != ' ';
+    int isValid = board[x][y] == ' ' && x < 3 && y < 3;
+    if (!isValid)
+    {
+        printf("!!! Not a valid Move !!!\n");
+        sleep(2);
+    }
 }
