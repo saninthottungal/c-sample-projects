@@ -145,9 +145,52 @@ void viewBooks()
 
         printf("\n");
     }
+    fclose(file);
 }
 void searchBooks()
 {
+    FILE *file = fopen(DB_PATH, "r");
+    if (file)
+    {
+
+        char line[1024];
+        char bookId[20];
+        int bookFound = 0;
+
+        printf("\nEnter the bookId: ");
+        scanf("%s", bookId);
+
+        while (fgets(line, sizeof(line), file))
+        {
+            line[strcspn(line, "\n")] = '\0';
+
+            char *token = strtok(line, ",");
+
+            if (strcmp(bookId, token) == 0)
+            {
+                printf("\nBook Found\n");
+                bookFound = 1;
+
+                while (token)
+                {
+                    printf("%s ", token);
+                    token = strtok(NULL, ",");
+                }
+                break;
+            }
+        }
+        if (!bookFound)
+        {
+            printf("\n!!! Book not found !!!\n");
+        }
+
+        fclose(file);
+        printf("\n");
+    }
+    else
+    {
+        printf("\n!!! opening file failed !!!\n");
+    }
 }
 void updateBook() {}
 void deleteBook() {}
