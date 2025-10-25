@@ -17,7 +17,8 @@ int main()
 
 void drawBoard(char board[3][3])
 {
-    printf("\n\n");
+
+    printf("\nTic-Tac-Toe\n\n");
 
     for (int i = 0; i < 3; i++)
     {
