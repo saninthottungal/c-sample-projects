@@ -127,7 +127,31 @@ void addBook()
 
     printf("\n!!! Book added succesfully !!!\n");
 }
-void viewBooks() {}
+void viewBooks()
+{
+    FILE *file = fopen(DB_PATH, "r");
+    if (file == NULL)
+    {
+        printf("\n!!! opening file failed !!!\n");
+        return;
+    }
+
+    printf("\n");
+    char entry[1024];
+    while (fgets(entry, sizeof(entry), file))
+    {
+        entry[strcspn(entry, "\n")] = '\0';
+
+        char *token = strtok(entry, ",");
+        while (token)
+        {
+            printf("%s ", token);
+            token = strtok(NULL, ",");
+        }
+
+        printf("\n");
+    }
+}
 void searchBooks() {}
 void updateBook() {}
 void deleteBook() {}
