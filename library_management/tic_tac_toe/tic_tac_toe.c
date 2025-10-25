@@ -10,17 +10,19 @@ typedef enum
 void drawBoard(char board[3][3]);
 void takeTurn(Player turn, int *x, int *y);
 void updateTakeAndTurn(char board[3][3], Player *turn, int x, int y);
+int calculateWinner(char board[3][3]);
 
 int main()
 {
     Player turn = PX;
+    Player winner = 0;
     char board[3][3] = {
         {' ', ' ', ' '},
         {' ', ' ', ' '},
         {' ', ' ', ' '},
     };
 
-    while (1)
+    while (calculateWinner(board))
     {
         int x = 0, y = 0;
         drawBoard(board);
@@ -83,4 +85,31 @@ void updateTakeAndTurn(char board[3][3], Player *turn, int x, int y)
         board[x][y] = player;
         *turn = *turn == PX ? P0 : PX;
     }
+}
+
+int calculateWinner(char board[3][3])
+{
+    int gameRunning = 1;
+    Player winner = 0;
+
+    for (int i = 0; i < 3; i++)
+    {
+
+        if (((board[i][0] == board[i][1]) && (board[i][1] == board[i][2])) && board[i][0] != ' ')
+        {
+
+            gameRunning = 0;
+            winner = board[i][0] == 'X' ? PX : P0;
+            return gameRunning;
+        }
+
+        if (((board[0][i] == board[1][i]) && (board[1][i] == board[2][i])) && board[0][i] != ' ')
+        {
+            gameRunning = 0;
+            winner = board[0][i] == 'X' ? PX : P0;
+            return gameRunning;
+        }
+    }
+
+    return gameRunning;
 }
