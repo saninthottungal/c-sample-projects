@@ -18,7 +18,6 @@ void viewBooks();
 void searchBooks();
 void updateBook();
 void deleteBook();
-void issueOrReturnBook();
 void showInvalidOptionSelected();
 
 int main(int argc, char const *argv[])
@@ -51,10 +50,6 @@ int main(int argc, char const *argv[])
             break;
 
         case 6:
-            issueOrReturnBook();
-            break;
-
-        case 7:
             return 0;
 
         default:
@@ -84,8 +79,7 @@ int showAvailableActions()
     printf("3. Search Book\n");
     printf("4. Update Book\n");
     printf("5. Delete Book\n");
-    printf("6. Issue/Return Book\n");
-    printf("7. Exit\n");
+    printf("6. Exit\n");
 
     int option;
     printf("Please choose your option: ");
@@ -152,7 +146,8 @@ void viewBooks()
         printf("\n");
     }
 }
-void searchBooks() {}
+void searchBooks()
+{
+}
 void updateBook() {}
 void deleteBook() {}
-void issueOrReturnBook() {}
