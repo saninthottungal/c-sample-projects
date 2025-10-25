@@ -7,6 +7,14 @@ typedef enum
     P0,
 } Player;
 
+typedef enum
+{
+    PXW,
+    P0W,
+    DRAW,
+    NONE,
+} Winner;
+
 void drawBoard(char board[3][3]);
 void takeTurn(Player turn, int *x, int *y);
 void updateTakeAndTurn(char board[3][3], Player *turn, int x, int y);
@@ -15,20 +23,34 @@ int calculateWinner(char board[3][3]);
 int main()
 {
     Player turn = PX;
-    Player winner = 0;
     char board[3][3] = {
         {' ', ' ', ' '},
         {' ', ' ', ' '},
         {' ', ' ', ' '},
     };
 
-    while (calculateWinner(board))
+    while (1)
     {
         int x = 0, y = 0;
         drawBoard(board);
 
         takeTurn(turn, &x, &y);
         updateTakeAndTurn(board, &turn, x, y);
+        int gameRunning = calculateWinner(board);
+        if (!gameRunning)
+        {
+            turn = PX;
+            board[0][0] = ' ';
+            board[0][1] = ' ';
+            board[0][2] = ' ';
+            board[1][0] = ' ';
+            board[1][1] = ' ';
+            board[1][2] = ' ';
+            board[2][0] = ' ';
+            board[2][1] = ' ';
+            board[2][2] = ' ';
+        }
+
         system("clear");
     }
 
@@ -90,7 +112,7 @@ void updateTakeAndTurn(char board[3][3], Player *turn, int x, int y)
 int calculateWinner(char board[3][3])
 {
     int gameRunning = 1;
-    Player winner = 0;
+    Winner winner = NONE;
 
     for (int i = 0; i < 3; i++)
     {
@@ -99,17 +121,28 @@ int calculateWinner(char board[3][3])
         {
 
             gameRunning = 0;
-            winner = board[i][0] == 'X' ? PX : P0;
-            return gameRunning;
+            winner = board[i][0] == 'X' ? PXW : P0W;
         }
 
         if (((board[0][i] == board[1][i]) && (board[1][i] == board[2][i])) && board[0][i] != ' ')
         {
             gameRunning = 0;
-            winner = board[0][i] == 'X' ? PX : P0;
-            return gameRunning;
+            winner = board[0][i] == 'X' ? PXW : P0W;
         }
     }
 
+    if (winner != NONE)
+    {
+        if (winner == DRAW)
+        {
+            printf("\n\n!!! It's a Draw !!!\n\n");
+        }
+        else
+        {
+            printf("\n\n!!! The Winner is: %s !!!\n\n", winner == PXW ? "X" : "0");
+        }
+
+        sleep(3);
+    }
     return gameRunning;
 }
